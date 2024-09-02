@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="black-bg">
+    
+    <!-- Conteúdo da página -->
+    <main class="pres-main">
+        <content class="pres-content-div">
+            
+            <!-- Logo -->
+            <img class="pres-img" src="{% static 'img/defaultlogo.png' %}" alt="Seletos Lancamentos Logo">
+
+            <!-- Conteúdo -->
+            <div class="main-content-div">
+
+                <!-- Saudação -->
+                <h3 class="pres-title">
+                    <strong>Seja bem-vindo</strong> ao nosso<br>
+                    sistema de ponto!
+                </h3>
+                
+                <!-- Ponto eletrônico -->
+                <div class="ep-box">
+                    
+                    <form action="{% url 'webpage:register_time_employee' %}" method='post'>
+                        {% csrf_token %}
+
+                        <!-- Horário -->
+                        <span class="pres-input-span">
+                            <input type="time" id="horario" name="horario" min="5" max="5" placeholder="Digite um horário" class="pres-input" required>
+                        </span>
+
+                        <!-- Funcionário -->
+                        <select name="employees" id="employees">
+                            {% for employee in employees %}
+                            <option value="{{ employee.pk }}">{{ employee.nome }} {{ employee.sobrenome }}</option>
+                            {% endfor %}
+                        </select>
+
+                            <!-- Botões -->
+                        <div class="buttons-main-div">
+                            <p>Manhã</p>
+                            <span class="button-row">
+                                    <input type="submit" name="entrada-manha" value="Entrada">
+                                    <input type="submit" name="saida-manha" value="Saida">
+                            </span>
+                            <p>Tarde</p>
+                            <span class="button-row">
+                                    <input type="submit" name="entrada-tarde" value="Entrada">
+                                    <input type="submit" name="saida-tarde" value="Saída">
+                            </span>
+                        </div>
+                    </form>
+                    
+                    
+
+                    
+                </div>
+
+                <!-- Veja mais -->
+                <a href="{% url 'webpage:homepage-view' %}" class="pres-link">
+                    <span class="pres-text">Veja mais</span>
+                </a>
+            </div>
+        </content>
+    </main>
+    
+    <!-- Others -->
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+</body>
+</html>
